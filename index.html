@@ -4,14 +4,23 @@
         <meta charset="UTF-8"/>
         <title>Trace Path</title>
         <link rel="stylesheet" href="/path.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Testing</h1>
+      <div class="container">
+      <div class="page-header">
+        <h1>GPS Track <span class="glyphicon glyphicon-globe" aria-hidden="true"></span></h1>
+      </div>
         <form action="#" id="choiceForm">
-            <label>
-                <input type="text" name="deviceID" id="deviceID" value="GPS001">
-            </label>
-            <button type="submit">Draw Path</button>
+          <div class="col-lg-6">
+          <div class="input-group">
+                <input type="text" class="form-control" ame="deviceID" id="deviceID" value="GPS001">
+            <span class="input-group-btn">
+            <button type="submit"  class="btn btn-primary">Find Device</button>
+          </span>
+        </div>
+      </div>
+    </div>
         </form>
         <div class="map"></div>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_69rD-JLBYzSs-xSqbEwG6XTrkrKI1N4">
