@@ -1,6 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function () {
     var map, flightPath;
     var baseUrl = 'http://139.59.9.255:1880/';
+
     function initMap() {
         map = new google.maps.Map($('.map')[0], {
             zoom: 18,
@@ -12,6 +13,22 @@ $(document).ready(function(){
         });
     }
     initMap();
+    $('#datetimepicker1').datetimepicker({
+        useCurrent: true,
+        format: "ddd, MMM Do YYYY, h:mm:ss a",
+        ignoreReadonly: true
+    });
+    $('#datetimepicker2').datetimepicker({
+        useCurrent: false ,//Important! See issue #1075
+        format: "ddd, MMM Do YYYY, h:mm:ss a",
+        ignoreReadonly: true
+    });
+    $("#datetimepicker1").on("dp.change", function (e) {
+        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker2").on("dp.change", function (e) {
+        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+    });
 
     function drawPath(t) {
         var deviceID = $("#deviceID").val();
@@ -44,5 +61,4 @@ $(document).ready(function(){
         event.preventDefault();
         drawPath();
     });
-
 })
