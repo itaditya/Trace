@@ -1,34 +1,8 @@
-function load(api, callback) {
-    var baseUrl = 'http://139.59.9.255:1880/';
-    api = baseUrl + api;
-    //api = "/api.json";
-    var ajax = new XMLHttpRequest();
-    ajax.overrideMimeType("application/json");
-    ajax.open('GET', api, true);
-    ajax.onreadystatechange = function () {
-        if (ajax.readyState == 4 && ajax.status == '200') {
-            callback(JSON.parse(ajax.responseText));
-        }
-    };
-    ajax.send(null);
-}
-
-function get(api, callback) {
-    var ajax = new XMLHttpRequest();
-    ajax.overrideMimeType("application/json");
-    ajax.open('GET', api, true);
-    ajax.onreadystatechange = function () {
-        if (ajax.readyState == 4 && ajax.status == '200') {
-            callback(JSON.parse(ajax.responseText));
-        }
-    };
-    ajax.send(null);
-}
-window.onload = function () {
+$(document).ready(function(){
     var map, flightPath;
-
+    var baseUrl = 'http://139.59.9.255:1880/';
     function initMap() {
-        map = new google.maps.Map(document.querySelector('.map'), {
+        map = new google.maps.Map($('.map')[0], {
             zoom: 18,
             center: {
                 lat: 28.452051,
@@ -40,9 +14,9 @@ window.onload = function () {
     initMap();
 
     function drawPath(t) {
-        var deviceID = document.querySelector("#deviceID").value;
-        var link = "data?deviceID=" + deviceID;
-        load(link, function (data) {
+        var deviceID = $("#deviceID").val();
+        var link = baseUrl + "data?deviceID=" + deviceID;
+        $.get(link, function (data) {
             console.log(data.length);
             flightPlanCoordinates = [];
             for (var i = data.length - 1; i >= 0; i--) {
@@ -52,7 +26,6 @@ window.onload = function () {
                 }
                 flightPlanCoordinates.push(coord);
             }
-            console.log(flightPlanCoordinates);
             if (flightPath) {
                 flightPath.setMap(null);
             }
@@ -67,8 +40,9 @@ window.onload = function () {
         });
     }
     drawPath();
-    document.querySelector('#choiceForm').addEventListener('submit', function () {
+    $('#choiceForm').on('submit', function () {
         event.preventDefault();
         drawPath();
     });
-}
+
+})
